@@ -157,21 +157,28 @@ function tableFilter(tableField, idx){
     /*
      Event Listeners For the Table
     */
-    $('.tableEditableData').each( (idx, data) => {
+    //$('.tableEditableData').each( (idx, data) => {
         // console.log(data);
-        data.addEventListener('dblclick', function(e){
+    const editBTN = document.getElementById("tableEditBtn");
+    const saveBTN = document.getElementById("tableSaveBtn");
+    const tableDataField = document.querySelectorAll(".tableEditableData");
+    
+    let newVal = [];
+    let data = '';
+    
+    editBTN.addEventListener('click', function(e){
+        tableDataField.forEach( (data, idx) => {
+            let tempVal = data.innerText;
+            let id = "t-input" + idx;
             
-            let tempVal = $(this)[0].innerText;
-            data.innerHTML = '<input type="text" class="t-input" value="' +tempVal+ '" />'
-            
-            $('.t-input').each( (i, item) => {
-                item.addEventListener('blur', function(e){
-                    data.innerHTML = e.target.value;
-                });
-                item.addEventListener('dblclick', function(e){
-                    e.stopPropagation(); 
-                });
-            });
+            data.innerHTML = '<input type="text" id="'+id+'" class="t-input" value="' +tempVal+ '" />'
+        });
+    });
+
+    saveBTN.addEventListener('click', function(e){
+        tableDataField.forEach( (data, idx) => {
+            let tempVal = data.firstChild.value;
+            data.innerHTML = tempVal;
         });
     });
 }
