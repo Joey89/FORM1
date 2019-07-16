@@ -1,3 +1,4 @@
+
 /*
  *
  */
@@ -7,8 +8,9 @@ $.ajax({
     dataType: 'json',
     contentType: 'application/json',
     success: function(data){
+        let len = data.length;
         data.forEach( (item, idx) =>{
-            tableFilter(item, idx);
+            tableFilter(item, idx, len);
         });
         
         //showAll(data);
@@ -33,7 +35,20 @@ function showAll(json){
  * this function also lets you edit the table data.
  * tableField - should take single item from ajax request data
  */
-function tableFilter(tableField, idx){
+
+const editBTN = document.getElementById("tableEditBtn");
+const saveBTN = document.getElementById("tableSaveBtn");
+
+var editable = true;
+let tempData = [];
+let count = 1;
+let newJSON = {};
+
+function tableFilter(tableField, idx, len){
+    
+    
+    //console.log(tableField);
+    
     const tableBody = $('#tableBody')[0];
     const keys = Object.keys(tableField);
     const vals = Object.values(tableField);
@@ -46,106 +61,105 @@ function tableFilter(tableField, idx){
     // place data into table slots
     keys.forEach( (key)=> {
         switch(key){
-            case "ReportId":
-                    output += "<td class='fixed-side' scope='col'>"+ tableField[key] + "</td>";
+            case "Report ID":
+                    output += "<td class='fixed-side' scope='col' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "PartnerReportKey":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Partner Report Key":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "ReportGroupType":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Report Group Type":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "ReportFrequency":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Report Frequency":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "ReportTransmissionType":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Report Transmission Type":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "ReportFileName":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Report File Name":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
             case "Datetime":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "EmailTo":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Email To":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "CCTo":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "CC To":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "EmailFrom":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Email From":
+                    output += "<td class='tableEditableData'  key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "EmailSubject":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Email Subject":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "EmailBody":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Email Body":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "EmailServer":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Email Server":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "EmailPort":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Email Port":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "FTPServer":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "FTP Server":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "FTPUser":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "FTP User":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "FTPPassword":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "FTP Password":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "FTPEncodedPassword":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "FTP Encoded Password":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "FTPPort":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "FTP Port":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "FTPDirectory":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "FTP Directory":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "EnabledFlag":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Enabled Flag":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "DisabledDate":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Disabled Date":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "CreationDate":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Creation Date":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "CreatedBy":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Created By":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "LastUpdateDate":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Last Update Date":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "LastUpdateBy":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Last Update By":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "ProgramUpdateDate":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Program Update Date":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "RequestID":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Request ID":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "ChangeNotes":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Change Notes":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "BusinessApprover":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "Business Approver":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "BIFolder":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "BI Folder":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "BIPath":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "BI Path":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-            case "BIMainReportName":
-                    output += "<td class='tableEditableData'>"+ tableField[key] + "</td>";
+            case "BI Main Report Name":
+                    output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
-                
             default:
                 break;
                 
@@ -157,28 +171,86 @@ function tableFilter(tableField, idx){
     /*
      Event Listeners For the Table
     */
-    //$('.tableEditableData').each( (idx, data) => {
-        // console.log(data);
-    const editBTN = document.getElementById("tableEditBtn");
-    const saveBTN = document.getElementById("tableSaveBtn");
+    
+
+   
+}
+
+// Global var for editable
+window.editable = true;
+
+editBTN.addEventListener('click', function(e){
     const tableDataField = document.querySelectorAll(".tableEditableData");
     
-    let newVal = [];
-    let data = '';
-    
-    editBTN.addEventListener('click', function(e){
+    if(window.editable){
         tableDataField.forEach( (data, idx) => {
             let tempVal = data.innerText;
             let id = "t-input" + idx;
-            
-            data.innerHTML = '<input type="text" id="'+id+'" class="t-input" value="' +tempVal+ '" />'
+                
+            data.innerHTML = '<input type="text" id="'+id+'" class="t-input" value="' +tempVal+ '" />';
+                
         });
-    });
+        window.editable = false;
+    }
+});
 
-    saveBTN.addEventListener('click', function(e){
+saveBTN.addEventListener('click', function(e){
+    // Pop up box to ensure you actually do want to save
+    const popUpSaveCheck = document.getElementById("popUpSaveCheck");
+    
+    popUpSaveCheck.style.display = 'block';
+
+    const saveBtn = document.getElementById("saveBtn");
+    saveBtn.addEventListener('click', function(e){
+        popUpSaveCheck.style.display = 'none';
+        const tableDataField = document.querySelectorAll(".tableEditableData");
+        let valArr = [];
+        
+        // 15 fields total, 6 columns
+        
+        // fill new table with updated data
         tableDataField.forEach( (data, idx) => {
-            let tempVal = data.firstChild.value;
-            data.innerHTML = tempVal;
+            //editable data
+            if( data.firstChild.value !== null &&
+                data.firstChild.value !== undefined
+            ){
+                let tempVal = data.firstChild.value;
+                data.innerHTML = tempVal;
+                
+                valArr.push(data);
+            }
         });
+        window.editable = true;
+
+        const mainTable = $('.main-table');
+        let jsonTable = mainTable.tableToJSON();
+            
+            // Send data to php file to update json
+            $.ajax({
+                url: '/save_json.php',
+                type: 'GET',
+                data:  { data: JSON.stringify(jsonTable) },
+                success: function(d){
+                    console.log(d);
+                },
+                error: function(err){
+                    console.log('ERROR!');
+                    console.log(err);
+                }
+            });
+
+        
+    }); // End save btn event
+
+    const cancelBtn = document.getElementById("cancelBtn");
+
+    cancelBtn.addEventListener('click', function(e){
+        popUpSaveCheck.style.display = 'none';
     });
-}
+    // SPEND 3 hours trying to get this last night
+    // spent 3 hours today.. - 2..... b/c i spent a while fucking around
+    // so 3:5 hours total into the save feature.
+    // start on css feature 10 am -- half hour css stuff
+
+});
+

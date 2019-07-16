@@ -4,12 +4,12 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/lightswitch05/table-to-json/master/src/jquery.tabletojson.js"></script>
     <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js'></script>
-    
     <script>
       // requires jquery library
     jQuery(document).ready(function() {
-    jQuery(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');   
+    //jQuery(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');   
  });
 
     </script>
@@ -21,13 +21,20 @@
         <img id="logo" src="arrow-logo-white.png" class="arrowLogo">
     </div>
   <div class="contentContainer">
-    
-   
+  
+  <span id="popUpSaveCheck" class="popUpSaveCheck">
+    <h3>Are you sure you would like to save?</h3>
+    <div class="container-save-btns">
+      <button id="cancelBtn">Cancel</button>
+      <button id="saveBtn">Save</button>
+    </div>
+  </span>
+
   <form ng-controller="userCtrl" id="simpleForm" class="searchForm">
    <div class="container">
     <div id="searchDiv" class="form-input-container">
       <div id="criteria1" class="criteria">
-
+      
       <span id="keySelectDiv" class="form">
         <select name="key" class="itemList " >
             <option value="partnerReportKey">Partner Report Key</option>

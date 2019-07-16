@@ -272,3 +272,25 @@ form .searchButton{
   margin: 10px;
   border: 1px solid green;
 }
+
+.popUpSaveCheck{
+  display: none;
+  background: rgba(0,0,0,0.1);
+  padding: 20px;
+  border: 1px solid black;
+  text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+#saveBtn{
+  border: none;
+  color: white;
+  background: #0000FF;
+  padding: 8px 15px;
+}
+#cancelBtn{
+  border: none;
+  color: white;
+  background:#682a2a;
+  padding: 8px 15px;
+}
