@@ -6,13 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.rawgit.com/lightswitch05/table-to-json/master/src/jquery.tabletojson.js"></script>
     <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js'></script>
-    <script>
-      // requires jquery library
-    jQuery(document).ready(function() {
-    //jQuery(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');   
- });
-
-    </script>
+  
 </head>
 <body>
 
@@ -55,7 +49,8 @@
             <option value="ftpPassword">FTP Password</option>
             <option value="ftpEncodedPassword">FTP Encoded Password</option>
             <option value="ftpPort">FTP Port</option>
-            <option value="ftpDirectory">FTP Directory</option>
+            <option value="ftp
+            Directory">FTP Directory</option>
             <option value="enabledFlag">Enabled Flag</option>
             <option value="disabledDate">Disabled Date</option>
             <option value="creationDate">Creation Date</option>
@@ -295,5 +290,12 @@
   <!-- javascript -->
   <script src="simple.js"></script>
   <script src="tableRender.js"></script>
+
+  <script>
+    // requires jquery library
+  jQuery(document).ready(function() {
+    jQuery(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');   
+  });
+  </script>
 </body>
 </html>

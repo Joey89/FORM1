@@ -246,7 +246,8 @@ table {
 .clone .fixed-side {
 	/*border:1px solid #000;*/ /*This adds a black border*/
 	background:rgb(255, 255, 255); /*This changes the background color of the first child*/
-	visibility:visible;
+  visibility:visible;
+  color: blue;
 }
 
 .clone thead, .clone tfoot{background:transparent;}
@@ -294,3 +295,4 @@ form .searchButton{
   background:#682a2a;
   padding: 8px 15px;
 }
+

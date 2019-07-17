@@ -3,7 +3,7 @@
  *
  */
 $.ajax({
-    url: '/api/data.json',
+    url: './api/data.json',
     type: 'GET',
     dataType: 'json',
     contentType: 'application/json',
@@ -222,12 +222,12 @@ saveBTN.addEventListener('click', function(e){
         });
         window.editable = true;
 
-        const mainTable = $('.main-table');
+        const mainTable = $('.table-wrap .main-table');
         let jsonTable = mainTable.tableToJSON();
             
             // Send data to php file to update json
             $.ajax({
-                url: '/save_json.php',
+                url: './save_json.php',
                 type: 'GET',
                 data:  { data: JSON.stringify(jsonTable) },
                 success: function(d){
@@ -247,10 +247,6 @@ saveBTN.addEventListener('click', function(e){
     cancelBtn.addEventListener('click', function(e){
         popUpSaveCheck.style.display = 'none';
     });
-    // SPEND 3 hours trying to get this last night
-    // spent 3 hours today.. - 2..... b/c i spent a while fucking around
-    // so 3:5 hours total into the save feature.
-    // start on css feature 10 am -- half hour css stuff
 
 });
 
