@@ -1,0 +1,25 @@
+{
+  "name": "form1-master",
+  "version": "1.0.0",
+  "description": "",
+  "main": "simple.js",
+  "dependencies": {
+    
+  },
+  "devDependencies": {
+    "jest": "^24.8.0"
+  },
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joey89/FORM1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joey89/FORM1/issues"
+  },
+  "homepage": "https://github.com/Joey89/FORM1#readme"
+}

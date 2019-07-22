@@ -1,64 +1,41 @@
-
-/*
- *
- */
-$.ajax({
-    url: './api/data.json',
-    type: 'GET',
-    dataType: 'json',
-    contentType: 'application/json',
-    success: function(data){
-        let len = data.length;
-        data.forEach( (item, idx) =>{
-            tableFilter(item, idx, len);
-        });
-        
-        //showAll(data);
-    },
-    error: function(err){
-        //console.log(err);
-    }
-});
-
-/*
- *
- */
-function showAll(json){
-    json.forEach( (item) => {
-        console.log(item);
-    });
-}
-
-/*
- * tableFilter()
- * this function creates a table UI from JSON data.
- * this function also lets you edit the table data.
- * tableField - should take single item from ajax request data
- */
+"use strict";
 
 const editBTN = document.getElementById("tableEditBtn");
 const saveBTN = document.getElementById("tableSaveBtn");
 
-var editable = true;
-let tempData = [];
-let count = 1;
-let newJSON = {};
+var editable = true; // for edit not to break if user hits edit twice
 
+// Get JSON data that is saved for this specific table, and render the data to the page.
+// function main(){
+    $.ajax({
+        url: './api/data.json',
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function(data){
+            let len = data.length;
+            data.forEach( (item, idx) =>{
+                tableFilter(item, idx, len);
+            });
+        },
+        error: function(err){
+            //console.log(err);
+        }
+    });
+// }
+
+/* tableFilter - takes json data and fills this table with SPECIFIC structured data
+ * this function creates a table UI from JSON data.
+ * tableField - should take single item from ajax request data ( table row, or json {} )
+ */
 function tableFilter(tableField, idx, len){
-    
-    
-    //console.log(tableField);
-    
     const tableBody = $('#tableBody')[0];
     const keys = Object.keys(tableField);
     const vals = Object.values(tableField);
 
-    //console.log(tableBody);
-
     let output = '';
-    // create new row for each
     output += '<tr>';
-    // place data into table slots
+
     keys.forEach( (key)=> {
         switch(key){
             case "Report ID":
@@ -161,92 +138,89 @@ function tableFilter(tableField, idx, len){
                     output += "<td class='tableEditableData' key='"+key+"' value='"+ tableField[key] +"'>"+ tableField[key] + "</td>";
                 break;
             default:
-                break;
-                
+                break;  
         }
     });
     output += '</tr>';
     tableBody.innerHTML += output;
-    
-    /*
-     Event Listeners For the Table
-    */
-    
-
-   
 }
-
-// Global var for editable
-window.editable = true;
-
-editBTN.addEventListener('click', function(e){
-    const tableDataField = document.querySelectorAll(".tableEditableData");
-    
-    if(window.editable){
-        tableDataField.forEach( (data, idx) => {
-            let tempVal = data.innerText;
-            let id = "t-input" + idx;
-                
-            data.innerHTML = '<input type="text" id="'+id+'" class="t-input" value="' +tempVal+ '" />';
-                
-        });
-        window.editable = false;
-    }
-});
-
-saveBTN.addEventListener('click', function(e){
-    // Pop up box to ensure you actually do want to save
-    const popUpSaveCheck = document.getElementById("popUpSaveCheck");
-    
-    popUpSaveCheck.style.display = 'block';
-
-    const saveBtn = document.getElementById("saveBtn");
-    saveBtn.addEventListener('click', function(e){
-        popUpSaveCheck.style.display = 'none';
+function init(){
+    /*
+        Event Listeners For the Table
+    */
+    editBTN.addEventListener('click', function(e){
         const tableDataField = document.querySelectorAll(".tableEditableData");
-        let valArr = [];
         
-        // 15 fields total, 6 columns
-        
-        // fill new table with updated data
-        tableDataField.forEach( (data, idx) => {
-            //editable data
-            if( data.firstChild.value !== null &&
-                data.firstChild.value !== undefined
-            ){
-                let tempVal = data.firstChild.value;
-                data.innerHTML = tempVal;
-                
-                valArr.push(data);
-            }
-        });
-        window.editable = true;
-
-        const mainTable = $('.table-wrap .main-table');
-        let jsonTable = mainTable.tableToJSON();
-            
-            // Send data to php file to update json
-            $.ajax({
-                url: './save_json.php',
-                type: 'GET',
-                data:  { data: JSON.stringify(jsonTable) },
-                success: function(d){
-                    console.log(d);
-                },
-                error: function(err){
-                    console.log('ERROR!');
-                    console.log(err);
-                }
+        if(window.editable){
+            tableDataField.forEach( (data, idx) => {
+                let tempVal = data.innerText;
+                let id = "t-input" + idx;
+                    
+                data.innerHTML = '<input type="text" id="'+id+'" class="t-input" value="' +tempVal+ '" />';
             });
-
-        
-    }); // End save btn event
-
-    const cancelBtn = document.getElementById("cancelBtn");
-
-    cancelBtn.addEventListener('click', function(e){
-        popUpSaveCheck.style.display = 'none';
+            window.editable = false;
+        }
     });
 
+    saveBTN.addEventListener('click', function(e){
+        // Pop up box to ensure you actually do want to save
+        const popUpSaveCheck = document.getElementById("popUpSaveCheck"); // pop up div
+        const saveBtn = document.getElementById("saveBtn"); // saveBtn for pop up check 
+
+        popUpSaveCheck.style.display = 'block';
+
+        saveBtn.addEventListener('click', function(e){
+            popUpSaveCheck.style.display = 'none';
+            const tableDataField = document.querySelectorAll(".tableEditableData");
+
+            // fill new table with updated data
+            tableDataField.forEach( (data, idx) => {
+                //editable data
+                if( data.firstChild.value !== null &&
+                    data.firstChild.value !== undefined
+                ){
+                    let tempVal = data.firstChild.value;
+                    data.innerHTML = tempVal;
+                }
+            });
+            window.editable = true;
+
+            const mainTable = $('.table-wrap .main-table');
+            let jsonTable = mainTable.tableToJSON();
+                
+                // Send data to php file to update json
+                $.ajax({
+                    url: './save_json.php',
+                    type: 'GET',
+                    data:  { data: JSON.stringify(jsonTable) },
+                    success: function(d){
+                        console.log(d);
+                    },
+                    error: function(err){
+                        console.log('ERROR SAVING!');
+                        console.log(err);
+                    }
+                });
+        }); // End save btn event
+
+        const cancelBtn = document.getElementById("cancelBtn");
+        cancelBtn.addEventListener('click', function(e){
+            popUpSaveCheck.style.display = 'none';
+        });
+
+    });
+
+    
+}
+
+// run it all!
+$(document).ready( function(){
+    // main function to call others
+    //main();
+    init(); 
 });
 
+
+
+
+//module.exports = tableFilter;
