@@ -217,7 +217,10 @@ function init(){
 $(document).ready( function(){
     // main function to call others
     //main();
-    init(); 
+   //  setTimeout( function(){
+        init(); 
+   //  }, 1000)
+    
 });
 
 
