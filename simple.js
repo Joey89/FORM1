@@ -48,12 +48,7 @@ app.controller('userCtrl', function($scope, $http) {
       '        <option value="BIMainReportName">BI Main Report Name</option>' +
       '</select>' +
       '</span>'   +
-      '<span id="containsDiv" class="form">' +
-        '<select>' +
-            '<option>Contains</option>' +
-            '<option>Equals</option>' +
-        '</select>' +
-      '</span>' +
+  
       '<span id="searchValDiv" class="form">' +
         '<input type="text" id="searchVal">' +
       '</span>' +

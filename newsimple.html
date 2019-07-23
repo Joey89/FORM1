@@ -6,24 +6,24 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.rawgit.com/lightswitch05/table-to-json/master/src/jquery.tabletojson.js"></script>
     <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js'></script>
-     
 </head>
+
 <body>
-  <!--------- Header ---------->
-  <div id="header" class="header">
-      <img id="logo" src="arrow-logo-white.png" class="arrowLogo">
-  </div>
+   <!--------- Header ---------->
+   <div id="header" class="header"> 
+   <img id="logo" src="arrow-logo-white.png" class="arrowLogo">
+   </div>
 
   <!---- Content Container contains the Search Parameter, the data table, and the "Edit" and "Save" buttons ---->
   <div class="contentContainer">
   
   <!---- "popUpSaveCheck" is a pop up box that appears when you hit the "Save" button and it double checks if you would actually
           like to save the changes made to the data table -->
-  <span id="popUpSaveCheck" class="popUpSaveCheck">
+  <span id="popUpSaveCheck" class="popUpSaveCheck"> 
     <h3>Are you sure you would like to save?</h3> <!-- <h3> tag displays the message in the pop up box -->
     <div class="container-save-btns">
-      <button id="cancelBtn">Cancel</button><!-- This is the "Cancel" button in the pop up box which would cancel the changes made to the data table -->
-      <button id="saveBtn">Save</button><!-- This is the "Save" button in the pop up box which will confirm the changes made to the data table -->
+      <button id="cancelBtn">Cancel</button> <!-- This is the "Cancel" button in the pop up box which would cancel the changes made to the data table -->
+      <button id="saveBtn">Save</button> <!-- This is the "Save" button in the pop up box which will confirm the changes made to the data table -->
     </div>
   </span>
 
@@ -31,9 +31,8 @@
    <div class="container">
     <div id="searchDiv" class="form-input-container">
       <div id="criteria1" class="criteria">
-      
       <span id="keySelectDiv" class="form">
-        <select name="key" class="itemList " >
+        <select name="key" class="itemList">
             <option value="partnerReportKey">Partner Report Key</option>
             <option value="reportGroupType">Report Group Type</option>
             <option value="reportFileName">Report File Name</option>
@@ -52,8 +51,7 @@
             <option value="ftpPassword">FTP Password</option>
             <option value="ftpEncodedPassword">FTP Encoded Password</option>
             <option value="ftpPort">FTP Port</option>
-            <option value="ftp
-            Directory">FTP Directory</option>
+            <option value="ftpDirectory">FTP Directory</option>
             <option value="enabledFlag">Enabled Flag</option>
             <option value="disabledDate">Disabled Date</option>
             <option value="creationDate">Creation Date</option>
@@ -70,14 +68,21 @@
         </select> 
       </span>
 
-      <span id="searchValDiv" class="form"> <!-- This is the input box where the user will type a string that will be used to pull up information from the database once the user has clicked on the "Search" button -->
+      <span id="containsDiv" class="form"> <!-- "containsDiv" is the drop-down list inside the Search Parameter and the current options inside the list are "Contains" and "Equals" -->
+        <select>
+            <option>Contains</option>
+            <option>Equals</option>
+        </select>
+      </span>
 
+      <span id="searchValDiv" class="form"> <!-- This is the input box where the user will type a string that will be used to pull up information from the database once the user has clicked on the "Search" button -->
         <input type="text" id="searchVal" class="form-button" placeholder="search for report...">
       </span>
       
       <span>
             <input id="searchButton" type="submit" value="Search" class="buttonPrimary searchButton">
       </span>
+
       <!---- "+" button is used to add a search parameter ---->
       <span class="addDiv" ng-click="addField()"><button id="addButton" type="button" class="addButton">+</button></span> 
       
@@ -127,11 +132,12 @@
             </tr>
           </thead>
           <tbody id="tableBody" class="tableBody">
+           
           </tbody>
+          
         </table>
       </div>
     </div>
-  
   
 <!-- "buttonGroup/workButtons" consists of two buttons which are "Edit" and "Save" and they are below the table -->
  <div id="workButtons" class="buttonGroup">
@@ -146,17 +152,16 @@
       <img id="logoFooter" src="arrow-logo-footer.png" class="footerLogo">
     </footer>
   -->
- <!---
-    <footer id="footer" class="footer">
-      <img id="logoFooter" src="arrow-logo-footer.png" class="footerLogo">
-    </footer>
-  -->
 
+  <!-- javascript -->
+  <script src="simple.js"></script>
+  <script src="tableRender.js"></script>
 
-
-   <!-- javascript -->
- <script src="simple.js"></script>
- <script src="tableRender.js"></script>
-
+  <script>
+    // requires jquery library
+  jQuery(document).ready(function() {
+    jQuery(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');   
+  });
+  </script>
 </body>
 </html>

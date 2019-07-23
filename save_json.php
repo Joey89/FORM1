@@ -9,7 +9,7 @@
     if( fwrite($fh, $stringData) ){
         echo 'Writing new file';
     } else {
-        echo 'something went wrong while saving new file';
+        echo 'Something went wrong while saving new file';
     }
     fclose($fh)
 ?>
