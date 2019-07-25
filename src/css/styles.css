@@ -211,7 +211,9 @@ table-scroll table {
 
 .clone thead, .clone tfoot{background:transparent;}
 
-
+.tableBody{
+  text-align: center; /* for td to be centered */
+}
 table tbody tr:nth-child(odd) {
   color: black;
 }
@@ -259,4 +261,6 @@ form .searchButton { /* form .searchButton is the "Search" button in the Search 
   padding: 8px 15px; /* The padding is used to control the overall size of the button */
 }
 
+.radio_table_edit{
+  margin-top: 15px; /* radio btn centered vertically*/
 /* Pop Up Box and More Buttons Ends Here */

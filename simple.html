@@ -2,7 +2,7 @@
 <html ng-app="myApp">
 <head>
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="./src/css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.rawgit.com/lightswitch05/table-to-json/master/src/jquery.tabletojson.js"></script>
     <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js'></script>
@@ -89,7 +89,7 @@
   <div id="table-scroll" class="table-scroll">
       <div class="table-wrap">
         <table class="main-table">
-          <thead> <!-- Below is the list of column table names from the database -->
+          <thead id="thead"> <!-- Below is the list of column table names from the database -->
             <tr>
               <th class="fixed-side" scope="col">Report ID</th>
               <th scope="col">Partner Report Key</th>
@@ -155,8 +155,8 @@
 
 
    <!-- javascript -->
- <script src="simple.js"></script>
- <script src="tableRender.js"></script>
+ <script src="./src/js/simple.js"></script>
+ <script src="./src/js/tableRender.js"></script>
 
 </body>
 </html>
