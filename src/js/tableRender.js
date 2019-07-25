@@ -9,7 +9,7 @@ var editable = true; // for edit not to break if user hits edit twice
 // Get JSON data that is saved for this specific table, and render the data to the page.
 // function main(){
     $.ajax({
-        url: './api/data.json',
+        url: './api/data.json?nocache=1',
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json',
